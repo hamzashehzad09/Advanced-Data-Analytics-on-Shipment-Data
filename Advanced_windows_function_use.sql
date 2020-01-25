@@ -1,4 +1,4 @@
--- Final Complete
+
 
 
 SELECT u1.id FROM user AS u1, user AS u2  -- Calling same column again using aliasing 
@@ -27,7 +27,7 @@ WHERE max_date < '2000-01-31';
 
 
 
--- QUESTION 3 SLUTION WITHOUT CTE
+-- WITHOUT CTE
 
 SELECT   email, average_visit_date from
     (SELECT * , date_dif/2 as average_visit_date -- AVERAGE OF DATES
@@ -58,7 +58,7 @@ SELECT   email, average_visit_date from
         
         
 
--- QUESTION 3 S0LUTION WITH CTE
+--  WITH CTE
 
 
 
