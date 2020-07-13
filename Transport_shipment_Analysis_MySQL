@@ -1,7 +1,4 @@
-
--- TRANSPORT DATA ANALYSIS
-
-select * from pricing_tool;
+select * from pricing_tool_;
 
 
 WITH CTE_nan_Null_Custom_Rate AS 
@@ -11,9 +8,6 @@ WITH CTE_nan_Null_Custom_Rate AS
   )
         
         
-
-
-
 SELECT											 
 	   -- shipment_reference, 
        custom_rate_reference, 
@@ -40,7 +34,8 @@ SELECT
        FORMAT (Deviation_in_Cost/shipment_distance,2) AS Deviation_in_Cost_km,
        FORMAT((Avg_Cost +  Deviation_in_Cost),2) AS Max_deviation,
        FORMAT((Avg_Cost +  Deviation_in_Cost)/shipment_distance,2) AS Max_deviation_km,
-	   (transport_pricing_amount - transport_cost_amount) AS Profit_OR_Margin,
+	   (transport_pricing_amount - transport_cost_amount) AS Profit_or_Margin,
+       FORMAT(((transport_pricing_amount - transport_cost_amount)/(transport_pricing_amount)), 2) * 100 AS Percentage_margin,
        FORMAT((Deviation_in_Cost / Avg_Cost),2) AS coefficient_of_variation,
        
        CONCAT(first_stop_country, "-" , last_stop_country) AS Country_to_Country_relation,
@@ -62,8 +57,6 @@ SELECT
        Frequency_Profit/(Frequency_Profit + Frequency_Loss ) * 100 AS Percentage_Frequency_Profit,
        Frequency_Loss/(Frequency_Profit + Frequency_Loss ) * 100 AS Percentage_Frequency_Loss
        
-       
-      
 
 			from 
 				(
@@ -110,7 +103,6 @@ SELECT
 					OVER(PARTITION BY  first_stop_one_digit_code, last_stop_one_digit_code)
 								AS Deviation_in_Cost_DE_DE_Relation_,
 
-				
 				MAX(transport_cost_amount) 
 					OVER(PARTITION BY custom_rate_reference, first_stop_one_digit_code, last_stop_one_digit_code,full_truck_type) 
 								AS Max_Cost,
